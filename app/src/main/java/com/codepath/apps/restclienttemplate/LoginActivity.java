@@ -4,12 +4,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
-public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
+public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
 	SampleModelDao sampleModelDao;
 	
@@ -21,7 +22,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
 
-		sampleModelDao = ((RestApplication) getApplicationContext()).getMyDatabase().sampleModelDao();
+		sampleModelDao = ((TwitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
 
 		AsyncTask.execute(new Runnable() {
 			@Override
@@ -43,6 +44,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
+		Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 		// Intent i = new Intent(this, PhotosActivity.class);
 		// startActivity(i);
 	}
@@ -51,6 +53,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 	// i.e Display an error dialog or toast
 	@Override
 	public void onLoginFailure(Exception e) {
+		Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
 		e.printStackTrace();
 	}
 
