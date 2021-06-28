@@ -23,7 +23,7 @@
         tools:text="Pablo Blanco" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
