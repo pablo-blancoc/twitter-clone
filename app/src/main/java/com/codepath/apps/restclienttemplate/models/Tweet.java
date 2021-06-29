@@ -43,4 +43,27 @@ public class Tweet {
         return tweets;
     }
 
+    /**
+     * Getter for Tweet's body
+     * @return String
+     */
+    public String getBody() {
+        return body;
+    }
+
+    /**
+     * Getter for Tweet's createdAt
+     * @return String
+     */
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Getter for Tweet's user
+     * @return User
+     */
+    public User getUser() {
+        return user;
+    }
 }
