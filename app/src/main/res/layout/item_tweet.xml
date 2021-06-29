@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:background="#121212" >
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -21,7 +22,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="Pablo Blanco" />
+        android:maxLength="35"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Museo Mexicano de InternetMuseo Mexicano de Internet" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -30,6 +35,32 @@
         android:layout_below="@+id/tvScreenName"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
+        android:textSize="12sp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#FFFFFF"
         tools:text="This is a simple tweet." />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/tvScreenName"
+        android:textColor="#9E9E9E"
+        android:textSize="12sp"
+        android:maxLength="15"
+        tools:text="pablo_blancocpablo_blancocpablo_blancocpablo_blancoc" />
+
+    <TextView
+        android:id="@+id/tvTimeAgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tvUsername"
+        android:layout_marginStart="2dp"
+        android:textSize="12sp"
+        android:maxLength="5"
+        android:textColor="#9E9E9E"
+        tools:text=". 2d" />
 </RelativeLayout>
