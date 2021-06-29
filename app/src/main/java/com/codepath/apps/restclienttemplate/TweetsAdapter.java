@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
@@ -79,6 +82,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         TextView tvUsername;
         TextView tvTimeAgo;
+        ImageView ivImage;
 
         /**
          * Constructor for the ViewHolder
@@ -93,6 +97,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             this.tvScreenName = itemView.findViewById(R.id.tvScreenName);
             this.tvUsername = itemView.findViewById(R.id.tvUsername);
             this.tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
+            this.ivImage = itemView.findViewById(R.id.ivImage);
         }
 
         /**
@@ -109,6 +114,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .fitCenter()
                     .circleCrop()
                     .into(this.ivProfileImage);
+            if( tweet.getMedia().length() > 1 ) {
+                this.ivImage.setVisibility(View.VISIBLE);
+                Glide.with(context)
+                        .load(tweet.getMedia())
+                        .fitCenter()
+                        .transform(new RoundedCornersTransformation(30, 10))
+                        .into(this.ivImage);
+            }
         }
     }
 

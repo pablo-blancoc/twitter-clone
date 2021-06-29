@@ -28,6 +28,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public List<Media> media;
 
     /**
      * Create a Tweet from a JSONObject that Twitter API responded
@@ -37,9 +38,22 @@ public class Tweet {
      */
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("text");
+        tweet.body = jsonObject.getString("full_text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        tweet.media = new ArrayList<>();
+        try {
+            JSONArray jsonArray = entities.getJSONArray("media");
+            for(int i=0; i<jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                tweet.media.add(Media.fromJsonObject(object));
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "No media to retrieve", e);
+            e.printStackTrace();
+        }
+
         return tweet;
     }
 
@@ -108,4 +122,18 @@ public class Tweet {
     public User getUser() {
         return user;
     }
+
+    /**
+     * Getter for Tweet's media
+     * @return User
+     */
+    public String getMedia() {
+        for (int i=0; i<this.media.size(); i++) {
+            if (this.media.get(i).type.equals("photo")) {
+                return this.media.get(i).imagePath;
+            }
+        }
+        return "";
+    }
+
 }
