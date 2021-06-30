@@ -169,10 +169,6 @@ public class TimelineActivity extends AppCompatActivity {
             // logout selected
             this.onLogout();
             return true;
-        } else if (id == R.id.compose) {
-            // COMPOSE selected
-            this.onCompose();
-            return true;
         }
 
         return super.onOptionsItemSelected(item);

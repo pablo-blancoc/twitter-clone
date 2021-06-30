@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <item
-        android:id="@+id/compose"
-        android:actionLayout="@layout/activity_timeline"
-        android:icon="@android:drawable/ic_menu_edit"
-        app:showAsAction="always"
-        android:orderInCategory="100"
-        android:title="Logout" />
     <item
         android:id="@+id/logout"
         android:actionLayout="@layout/activity_timeline"

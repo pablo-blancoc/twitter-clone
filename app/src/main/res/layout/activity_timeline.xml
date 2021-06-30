@@ -57,7 +57,8 @@
         android:focusable="true"
         android:onClick="onCompose"
         app:rippleColor="#ffffff"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/ic_vector_compose"
+        android:tint="@android:color/white"/>
 
 
 </RelativeLayout>
