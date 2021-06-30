@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -84,6 +85,11 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Inflates the menu to display the menu options on an xml file
+     * @param menu: Menu to inflate
+     * @return boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu
@@ -91,7 +97,10 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onLogout() {
+    /**
+     * Logs out of the app
+     */
+    private void onLogout() {
         // forget who's logged in
         this.client.clearAccessToken();
 
@@ -99,6 +108,11 @@ public class TimelineActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Check which option of the menu was selected
+     * @param item: item selected
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -106,13 +120,24 @@ public class TimelineActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
+            // logout selected
             this.onLogout();
+            return true;
+        } else if (id == R.id.compose) {
+            // COMPOSE selected
+            this.onCompose();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onCompose() {
+
+    }
+
+    public void onCompose(View view) {
     }
 }
 

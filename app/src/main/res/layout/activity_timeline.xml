@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TimelineActivity">
+    tools:context=".TimelineActivity"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:background="#121212">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -32,5 +35,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#121212"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#1D8DEE"
+        app:pressedTranslationZ="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onCompose"
+        app:rippleColor="#ffffff"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
 
 </RelativeLayout>
