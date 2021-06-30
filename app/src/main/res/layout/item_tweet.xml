@@ -114,6 +114,8 @@
         android:id="@+id/like"
         android:layout_width="40dp"
         android:layout_height="20dp"
+        android:clickable="true"
+        android:focusable="true"
         app:srcCompat="@drawable/ic_vector_heart_stroke"
         android:layout_below="@id/ivImage"
         android:layout_toEndOf="@id/retweetCount"

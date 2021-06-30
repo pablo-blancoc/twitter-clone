@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     // Atrributes
+    private TwitterClient client;
     private Context context;
     private List<Tweet> tweets;
     private Drawable LIKED;
@@ -47,6 +52,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         RETWEETED = ContextCompat.getDrawable(context, R.drawable.ic_vector_retweet);
         NOT_LIKED = ContextCompat.getDrawable(context, R.drawable.ic_vector_heart_stroke);
         NOT_RETWEETED = ContextCompat.getDrawable(context, R.drawable.ic_vector_retweet_stroke);
+
+         this.client = TwitterApp.getRestClient(context);
     }
 
     /**
@@ -149,7 +156,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
          * Bind data to the ViewHolder object
          * @param tweet: The tweet to bind to the View
          */
-        public void bind(Tweet tweet) {
+        public void bind(final Tweet tweet) {
             this.tvBody.setText(tweet.getBody());
             this.tvScreenName.setText(tweet.getUser().name);
             this.tvUsername.setText(String.format("@%s", tweet.getUser().username));
@@ -191,6 +198,51 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 this.ivImage.setVisibility(View.GONE);
             }
+
+            /**
+             * Like a tweet
+             */
+            this.like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(tweet.isLiked) {
+                        // If tweet is liked then dislike it
+                        client.dislike(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                tweet.isLiked = false;
+                                tweet.likes -= 1;
+                                likeCount.setText(String.valueOf(tweet.likes));
+                                like.setImageDrawable(NOT_LIKED);
+                                like.setColorFilter(null);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetsAdapter", "Not disliked: " + response, throwable);
+                            }
+                        });
+                    } else {
+                        // If tweet is not liked then like it
+                        client.like(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                tweet.isLiked = true;
+                                tweet.likes += 1;
+                                likeCount.setText(String.valueOf(tweet.likes));
+                                like.setImageDrawable(LIKED);
+                                like.setColorFilter(Color.argb(255, 224, 36, 94));
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetsAdapter", "Not liked: " + response, throwable);
+                            }
+                        });
+                    }
+                }
+            });
+
         }
     }
 
