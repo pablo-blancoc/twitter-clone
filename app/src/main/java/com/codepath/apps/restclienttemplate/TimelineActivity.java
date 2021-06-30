@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -32,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 24;
     private TwitterClient client;
     private Toolbar toolbar;
+    private SwipeRefreshLayout swipeContainer;
     RecyclerView rvTweets;
     TweetsAdapter adapter;
     List<Tweet> tweets;
@@ -45,6 +47,19 @@ public class TimelineActivity extends AppCompatActivity {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.toolbar.setTitle("");
         setSupportActionBar(this.toolbar);
+
+        // Setup SwipeContainer
+        this.swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        this.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTimeline();
+            }
+        });
 
         // Create an instance of TwitterClient
         client = TwitterApp.getRestClient(this);
@@ -71,13 +86,39 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess!" + json.toString());
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.e(TAG, "JSON exception on populateHomeTimeline", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Error while getting timeline: " + response, throwable);
+            }
+        });
+    }
+
+    /**
+     * Refreshes twitter feed
+     */
+    private void refreshTimeline() {
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    // Refresh all TweetAdapter data
+                    adapter.clear();
+                    adapter.notifyDataSetChanged();
+                    adapter.addAll(Tweet.fromJsonArray(jsonArray));
+                    swipeContainer.setRefreshing(false);
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSON exception while refreshing", e);
                     e.printStackTrace();
                 }
             }

@@ -70,6 +70,23 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return this.tweets.size();
     }
 
+    /**
+     * Clean all elements within the RecyclerView.Adapter
+     */
+    public void clear() {
+        this.tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Add a list of Tweets to Adapter data
+     * @param list: List of Tweets to add
+     */
+    public void addAll(List<Tweet> list) {
+        this.tweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
 
     /**
      * Class for TweetsAdapter ViewHolder
@@ -121,6 +138,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .fitCenter()
                         .transform(new RoundedCornersTransformation(30, 10))
                         .into(this.ivImage);
+            } else {
+                this.ivImage.setVisibility(View.GONE);
             }
         }
     }

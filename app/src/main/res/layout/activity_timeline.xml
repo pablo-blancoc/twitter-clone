@@ -29,12 +29,19 @@
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/logo" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTweets"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#121212"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTweets"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#121212"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

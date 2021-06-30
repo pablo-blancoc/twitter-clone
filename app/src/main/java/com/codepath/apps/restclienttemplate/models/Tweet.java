@@ -29,7 +29,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
-    public List<Media> media;
+    public Media media;
 
     /**
      * Empty constructor for Parcel
@@ -53,13 +53,10 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         JSONObject entities = jsonObject.getJSONObject("entities");
-        tweet.media = new ArrayList<>();
         try {
             JSONArray jsonArray = entities.getJSONArray("media");
-            for(int i=0; i<jsonArray.length(); i++) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                tweet.media.add(Media.fromJsonObject(object));
-            }
+            JSONObject object = jsonArray.getJSONObject(0);
+            tweet.media = Media.fromJsonObject(object);
         } catch (JSONException e) {
             Log.e(TAG, "No media to retrieve");
             // e.printStackTrace();
@@ -139,12 +136,15 @@ public class Tweet {
      * @return User
      */
     public String getMedia() {
-        for (int i=0; i<this.media.size(); i++) {
-            if (this.media.get(i).type.equals("photo")) {
-                return this.media.get(i).imagePath;
+        try {
+            if (this.media.type.equals("photo")) {
+                return this.media.imagePath;
+            } else {
+                return "";
             }
+        } catch (NullPointerException e) {
+            return "";
         }
-        return "";
     }
 
 }
