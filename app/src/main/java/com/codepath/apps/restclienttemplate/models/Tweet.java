@@ -26,10 +26,17 @@ public class Tweet {
     private static final String TAG = "Tweet";
 
     // Attributes
+    public String id;
     public String body;
     public String createdAt;
     public User user;
     public Media media;
+    public int likes;
+    public int retweets;
+    public int comments;
+    public boolean isLiked;
+    public boolean isRetweeted;
+
 
     /**
      * Empty constructor for Parcel
@@ -52,6 +59,13 @@ public class Tweet {
         }
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+        tweet.likes = jsonObject.getInt("favorite_count");
+        tweet.retweets = jsonObject.getInt("retweet_count");
+        tweet.id = jsonObject.getString("id");
+        tweet.isLiked = jsonObject.getBoolean("favorited");
+        tweet.isRetweeted = jsonObject.getBoolean("retweeted");
+
+
         JSONObject entities = jsonObject.getJSONObject("entities");
         try {
             JSONArray jsonArray = entities.getJSONArray("media");

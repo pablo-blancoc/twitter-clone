@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,9 +24,15 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
+    // Constants
+    public static final String LIKED_COLOR = "#e0245e";
+    public static final String RETWEET_COLOR = "#17bf63";
+
     // Atrributes
     private Context context;
     private List<Tweet> tweets;
+    private Drawable LIKED;
+    private Drawable RETWEETED;
 
     /**
      * Constructor for the TweetsAdapter
@@ -34,6 +42,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
+        LIKED = ContextCompat.getDrawable(context, R.drawable.ic_vector_heart);
+        RETWEETED = ContextCompat.getDrawable(context, R.drawable.ic_vector_retweet);
     }
 
     /**
@@ -100,6 +110,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvUsername;
         TextView tvTimeAgo;
         ImageView ivImage;
+        TextView likeCount;
+        TextView retweetCount;
+
+        // Buttons
+        ImageView like;
+        ImageView retweet;
+        ImageView comment;
+        ImageView share;
+
 
         /**
          * Constructor for the ViewHolder
@@ -115,6 +134,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             this.tvUsername = itemView.findViewById(R.id.tvUsername);
             this.tvTimeAgo = itemView.findViewById(R.id.tvTimeAgo);
             this.ivImage = itemView.findViewById(R.id.ivImage);
+            this.likeCount = itemView.findViewById(R.id.likeCount);
+            this.retweetCount = itemView.findViewById(R.id.retweetCount);
+            this.like = itemView.findViewById(R.id.like);
+            this.retweet = itemView.findViewById(R.id.retweet);
+            this.comment = itemView.findViewById(R.id.comment);
+            this.share = itemView.findViewById(R.id.share);
         }
 
         /**
@@ -126,6 +151,22 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             this.tvScreenName.setText(tweet.getUser().name);
             this.tvUsername.setText(String.format("@%s", tweet.getUser().username));
             this.tvTimeAgo.setText(tweet.getCreatedAt());
+            this.likeCount.setText(String.valueOf(tweet.likes));
+            this.retweetCount.setText(String.valueOf(tweet.retweets));
+
+            // Tweet is liked
+            if( tweet.isLiked ) {
+                this.like.setImageDrawable(LIKED);
+                this.like.setColorFilter(Integer.parseInt(LIKED_COLOR));
+            }
+
+            // Tweet is retweeted
+            if( tweet.isRetweeted ) {
+                this.retweet.setImageDrawable(RETWEETED);
+                this.retweet.setColorFilter(Integer.parseInt(RETWEET_COLOR));
+            }
+
+
             Glide.with(context)
                     .load(tweet.getUser().profileImageUrl)
                     .fitCenter()
