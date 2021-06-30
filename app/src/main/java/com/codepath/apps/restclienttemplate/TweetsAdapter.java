@@ -200,7 +200,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
 
             /**
-             * Like a tweet
+             * Like or unlike a tweet
              */
             this.like.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -232,6 +232,50 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 likeCount.setText(String.valueOf(tweet.likes));
                                 like.setImageDrawable(LIKED);
                                 like.setColorFilter(Color.argb(255, 224, 36, 94));
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetsAdapter", "Not liked: " + response, throwable);
+                            }
+                        });
+                    }
+                }
+            });
+
+            /**
+             * Retweet or unretweet a tweet
+             */
+            this.retweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(tweet.isRetweeted) {
+                        // If tweet is retweeted then undo
+                        client.unretweet(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                tweet.isRetweeted = false;
+                                tweet.retweets -= 1;
+                                retweetCount.setText(String.valueOf(tweet.retweets));
+                                retweet.setImageDrawable(NOT_RETWEETED);
+                                retweet.setColorFilter(null);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetsAdapter", "Not retweeted: " + response, throwable);
+                            }
+                        });
+                    } else {
+                        // If tweet is not retweeted then retweeted it
+                        client.retweet(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                tweet.isRetweeted = true;
+                                tweet.retweets += 1;
+                                retweetCount.setText(String.valueOf(tweet.retweets));
+                                retweet.setImageDrawable(RETWEETED);
+                                retweet.setColorFilter(Color.argb(255, 23, 191, 99));
                             }
 
                             @Override
