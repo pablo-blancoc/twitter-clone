@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,15 +27,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
-    // Constants
-    public static final String LIKED_COLOR = "#e0245e";
-    public static final String RETWEET_COLOR = "#17bf63";
-
     // Atrributes
     private Context context;
     private List<Tweet> tweets;
     private Drawable LIKED;
     private Drawable RETWEETED;
+    private Drawable NOT_LIKED;
+    private Drawable NOT_RETWEETED;
 
     /**
      * Constructor for the TweetsAdapter
@@ -44,6 +45,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         this.tweets = tweets;
         LIKED = ContextCompat.getDrawable(context, R.drawable.ic_vector_heart);
         RETWEETED = ContextCompat.getDrawable(context, R.drawable.ic_vector_retweet);
+        NOT_LIKED = ContextCompat.getDrawable(context, R.drawable.ic_vector_heart_stroke);
+        NOT_RETWEETED = ContextCompat.getDrawable(context, R.drawable.ic_vector_retweet_stroke);
     }
 
     /**
@@ -157,13 +160,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             // Tweet is liked
             if( tweet.isLiked ) {
                 this.like.setImageDrawable(LIKED);
-                this.like.setColorFilter(Integer.parseInt(LIKED_COLOR));
+                this.like.setColorFilter(Color.argb(255, 224, 36, 94));
+            } else {
+                this.like.setImageDrawable(NOT_LIKED);
+                this.like.setColorFilter(null);
             }
 
             // Tweet is retweeted
             if( tweet.isRetweeted ) {
                 this.retweet.setImageDrawable(RETWEETED);
-                this.retweet.setColorFilter(Integer.parseInt(RETWEET_COLOR));
+                this.like.setColorFilter(Color.argb(255, 23, 191, 99));
+            } else {
+                this.retweet.setImageDrawable(NOT_RETWEETED);
+                this.retweet.setColorFilter(null);
             }
 
 
