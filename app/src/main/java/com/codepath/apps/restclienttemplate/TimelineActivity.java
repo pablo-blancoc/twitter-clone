@@ -34,6 +34,7 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient client;
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeContainer;
+    MenuItem loading;
     RecyclerView rvTweets;
     TweetsAdapter adapter;
     List<Tweet> tweets;
@@ -74,31 +75,33 @@ public class TimelineActivity extends AppCompatActivity {
         // RecyclerView setup (Layout Manager and set TweetsAdapter)
         this.rvTweets.setLayoutManager(new LinearLayoutManager(this));
         this.rvTweets.setAdapter(this.adapter);
-
-        // Fill our timeline with tweets
-        this.populateHomeTimeline();
     }
 
     /**
      * Gets timeline's tweets by making a GET request from the client to Twitter's API
      */
     private void populateHomeTimeline() {
+
+        this.loading.setVisible(true);
+
         client.getHomeTimeline(new JsonHttpResponseHandler() {
-            @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     adapter.notifyDataSetChanged();
+                    loading.setVisible(false);
                 } catch (JSONException e) {
                     Log.e(TAG, "JSON exception on populateHomeTimeline", e);
                     e.printStackTrace();
+                    loading.setVisible(false);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "Error while getting timeline: " + response, throwable);
+                loading.setVisible(false);
             }
         });
     }
@@ -140,6 +143,16 @@ public class TimelineActivity extends AppCompatActivity {
         // Inflate the menu
         getMenuInflater().inflate(R.menu.timeline_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        this.loading = menu.findItem(R.id.progressBar);
+
+        // Fill our timeline with tweets after progress-bar has been found
+        this.populateHomeTimeline();
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     /**

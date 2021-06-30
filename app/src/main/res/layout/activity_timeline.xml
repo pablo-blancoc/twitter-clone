@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="#1D8DEE"
+        android:backgroundTint="#1DA1F2"
         app:pressedTranslationZ="2dp"
         android:clickable="true"
         android:focusable="true"

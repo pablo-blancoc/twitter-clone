@@ -3,10 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/progressBar"
+        android:title="Loading..."
+        android:visible="false"
+        android:orderInCategory="200"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_view" />
+
+    <item
         android:id="@+id/logout"
         android:actionLayout="@layout/activity_timeline"
         android:icon="@android:drawable/ic_menu_edit"
-        android:orderInCategory="200"
+        android:orderInCategory="100"
         android:title="Logout" />
 
 </menu>
