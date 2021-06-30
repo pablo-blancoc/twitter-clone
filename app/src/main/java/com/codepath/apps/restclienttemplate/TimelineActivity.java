@@ -1,9 +1,11 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
+    public static final int REQUEST_CODE = 24;
     private TwitterClient client;
     private Toolbar toolbar;
     RecyclerView rvTweets;
@@ -133,11 +137,42 @@ public class TimelineActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Create a new intent to change to ComposeActivity and tweet something
+     */
     private void onCompose() {
-
+        Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
+    /**
+     * Call onCompose() method to avoid code repetition and change to ComposeActivity and tweet something
+     * @param view: from what view was it called
+     */
     public void onCompose(View view) {
+    this.onCompose();
+    }
+
+    /**
+     * Method called when an Activity has finished successfully and has returned some data
+     * @param requestCode: custom code to identify the activity
+     * @param resultCode: android's code to know if activity has finished successfully
+     * @param data: the data returned from activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if( requestCode == REQUEST_CODE && resultCode == RESULT_OK ) {
+            // Get Tweet object from intent
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+
+            // Update RecyclerView with new Tweet (update data and notify adapter)
+            tweets.add(0, tweet);
+            adapter.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
 

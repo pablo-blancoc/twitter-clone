@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+@Parcel
 public class Tweet {
 
     // Constants
@@ -31,6 +32,12 @@ public class Tweet {
     public List<Media> media;
 
     /**
+     * Empty constructor for Parcel
+     */
+    public Tweet() {
+    }
+
+    /**
      * Create a Tweet from a JSONObject that Twitter API responded
      * @param jsonObject: The JSONObject to turn to a Tweet
      * @return Tweet
@@ -38,7 +45,11 @@ public class Tweet {
      */
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("full_text");
+        try {
+            tweet.body = jsonObject.getString("full_text");
+        } catch (JSONException e) {
+            tweet.body = jsonObject.getString("text");
+        }
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         JSONObject entities = jsonObject.getJSONObject("entities");

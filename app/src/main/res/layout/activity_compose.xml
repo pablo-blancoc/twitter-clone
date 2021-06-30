@@ -8,7 +8,7 @@
     tools:context=".ComposeActivity">
 
     <Button
-        android:id="@+id/buttonCancel"
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -20,7 +20,7 @@
         android:text="@string/cancel_button" />
 
     <Button
-        android:id="@+id/buttonTweet"
+        android:id="@+id/btnTweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -29,20 +29,29 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="#1D8DEE"
         android:textColor="#FFFFFF"
-        android:layout_above="@id/tvText"
+        android:layout_above="@id/tfLayout"
         android:text="@string/tweet_button" />
 
-
-    <EditText
-        android:id="@+id/tvText"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonCancel"
+        android:id="@+id/tfLayout"
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        android:layout_below="@id/btnCancel"
         android:layout_margin="5dp"
-        android:gravity="start|top"
-        android:minLines="7"
-        android:hint="@string/tweet_placeholder"
-        android:inputType="textMultiLine"
-        android:textColor="#FFFFFF" />
+        app:counterTextAppearance="@style/counterText"
+        app:counterOverflowTextAppearance="@style/counterOverride">
+
+        <EditText
+            android:id="@+id/etCompose"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start|top"
+            android:minLines="7"
+            android:hint="@string/tweet_placeholder"
+            android:inputType="textMultiLine"
+            android:textColor="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

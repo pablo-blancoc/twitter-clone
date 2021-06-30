@@ -41,8 +41,11 @@ public class TwitterClient extends OAuthBaseClient {
 				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
+
+	/**
+	 * Get HomeTimeline Tweets from Twitter
+	 * @param handler: how to handle the response
+	 */
 	public void getHomeTimeline(JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		// Can specify query string params directly or through RequestParams.
@@ -51,6 +54,19 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("since_id", 1);
 		params.put("tweet_mode", "extended");
 		client.get(apiUrl, params, handler);
+	}
+
+	/**
+	 * Post a new Tweet using the User's account on Twitter
+	 * @param content: The text to tweet
+	 * @param handler: how to handle the response
+	 */
+	public void tweet(String content, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("status", content);
+		client.post(apiUrl, params, "", handler);
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
