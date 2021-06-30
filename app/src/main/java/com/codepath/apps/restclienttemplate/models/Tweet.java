@@ -50,8 +50,8 @@ public class Tweet {
                 tweet.media.add(Media.fromJsonObject(object));
             }
         } catch (JSONException e) {
-            Log.e(TAG, "No media to retrieve", e);
-            e.printStackTrace();
+            Log.e(TAG, "No media to retrieve");
+            // e.printStackTrace();
         }
 
         return tweet;

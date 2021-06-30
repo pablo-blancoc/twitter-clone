@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -22,6 +26,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
     private TwitterClient client;
+    private Toolbar toolbar;
     RecyclerView rvTweets;
     TweetsAdapter adapter;
     List<Tweet> tweets;
@@ -30,6 +35,11 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        // Setup Toolbar
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar.setTitle("");
+        setSupportActionBar(this.toolbar);
 
         // Create an instance of TwitterClient
         client = TwitterApp.getRestClient(this);
@@ -73,4 +83,36 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu
+        getMenuInflater().inflate(R.menu.timeline_menu, menu);
+        return true;
+    }
+
+    public void onLogout() {
+        // forget who's logged in
+        this.client.clearAccessToken();
+
+        // navigate backwards to Login screen
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.logout) {
+            this.onLogout();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
+

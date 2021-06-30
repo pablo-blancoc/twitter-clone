@@ -7,11 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:padding="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/logo" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTweets"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="#121212"/>
+
 </RelativeLayout>
