@@ -15,6 +15,7 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.codepath.apps.restclienttemplate.models.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -38,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     TweetsAdapter adapter;
     List<Tweet> tweets;
+    EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class TimelineActivity extends AppCompatActivity {
         this.toolbar.setTitle("");
         setSupportActionBar(this.toolbar);
 
-        // Setup SwipeContainer
+        // Setup SwipeContainer and colors for loading
         this.swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -75,7 +77,44 @@ public class TimelineActivity extends AppCompatActivity {
         // RecyclerView setup (Layout Manager and set TweetsAdapter)
         this.rvTweets.setLayoutManager(new LinearLayoutManager(this));
         this.rvTweets.setAdapter(this.adapter);
+
+        // Create an instance of EndlessScroll Listener
+        this.scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) this.rvTweets.getLayoutManager()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                String id = tweets.get(tweets.size() - 1).id;
+                loadMoreData(id);
+            }
+        };
+
+        // Set on scrollListener
+        this.rvTweets.addOnScrollListener(this.scrollListener);
     }
+
+
+    private void loadMoreData(String id) {
+
+        client.getMoreHomeTimeline(id, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSON exception on populateHomeTimeline", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Error while endless scroll: " + response, throwable);
+            }
+        });
+
+    }
+
 
     /**
      * Gets timeline's tweets by making a GET request from the client to Twitter's API

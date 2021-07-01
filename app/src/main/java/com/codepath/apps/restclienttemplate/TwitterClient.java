@@ -57,6 +57,20 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 
 	/**
+	 * Get more HomeTimeline Tweets from Twitter
+	 * @param handler: how to handle the response
+	 */
+	public void getMoreHomeTimeline(String id, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/home_timeline.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count", "25");
+		params.put("max_id", id);
+		params.put("tweet_mode", "extended");
+		client.get(apiUrl, params, handler);
+	}
+
+	/**
 	 * Post a new Tweet using the User's account on Twitter
 	 * @param content: The text to tweet
 	 * @param handler: how to handle the response
