@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -23,6 +25,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -30,6 +33,9 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
+
+    // CONSTANTS
+    public static final int REQUEST_CODE = 24;
 
     // Atrributes
     private TwitterClient client;
@@ -287,7 +293,23 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+            /**
+             * When the comment button is pressed open compose to write a new comment
+             */
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    String name = tweet.user.username;
+                    Intent intent = new Intent(v.getContext(), ComposeActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("username", name);
+                    context.startActivity(intent);
+                }
+            });
+
         }
+
     }
 
 }

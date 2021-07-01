@@ -32,6 +32,8 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     Button btnCancel;
     TwitterClient client;
+    String reply_to_id;
+    String reply_to_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,12 @@ public class ComposeActivity extends AppCompatActivity {
         this.etCompose = findViewById(R.id.etCompose);
         this.btnTweet = findViewById(R.id.btnTweet);
         this.btnCancel = findViewById(R.id.btnCancel);
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            this.reply_to_id = intent.getStringExtra("id");
+            this.reply_to_name = intent.getStringExtra("username");
+        }
 
         /**
          * OnClickListener to publish tweet
@@ -64,8 +72,13 @@ public class ComposeActivity extends AppCompatActivity {
                     Snackbar.make(v, "Tweet too long", Snackbar.LENGTH_SHORT).show();
                     return;
                 } else {
+
+                    if( reply_to_id != null ) {
+                        content = "@" + reply_to_name + ", " + content;
+                    }
+
                     // Make API call to publish Tweet
-                    client.tweet(content, new JsonHttpResponseHandler() {
+                    client.tweet(content, reply_to_id, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
                             Log.i(TAG, "Tweet published");
