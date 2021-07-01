@@ -32,6 +32,8 @@ import java.util.List;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
+import static android.app.Activity.RESULT_OK;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     // CONSTANTS
@@ -315,10 +317,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 public void onClick(View v) {
                     String id = tweet.id;
                     String name = tweet.user.username;
-                    Intent intent = new Intent(v.getContext(), ComposeActivity.class);
+                    Intent intent = new Intent(context, ComposeActivity.class);
                     intent.putExtra("id", id);
                     intent.putExtra("username", name);
-                    context.startActivity(intent);
+                    ((TimelineActivity) context).startActivityForResult(intent, REQUEST_CODE);
                 }
             });
 

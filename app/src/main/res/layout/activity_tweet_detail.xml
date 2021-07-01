@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border" >
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:maxLength="35"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Museo Mexicano de InternetMuseo Mexicano de Internet" />
+
+    <TextView
+        android:id="@+id/tvReplyToTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#9E9E9E"
+        android:visibility="gone"
+        android:text="@string/replying_to" />
+
+    <TextView
+        android:id="@+id/tvReplyTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/tvReplyToTitle"
+        android:textColor="#1DA1F2"
+        android:visibility="gone"
+        android:text="@string/replying_to" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvReplyToTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#FFFFFF"
+        tools:text="This is a simple tweet." />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/tvScreenName"
+        android:textColor="#9E9E9E"
+        android:textSize="12sp"
+        android:maxLength="15"
+        tools:text="pablo_blancocpablo_blancocpablo_blancocpablo_blancoc" />
+
+    <TextView
+        android:id="@+id/tvTimeAgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tvUsername"
+        android:layout_marginStart="2dp"
+        android:textSize="12sp"
+        android:maxLength="5"
+        android:textColor="#9E9E9E"
+        tools:text=". 2d" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_toEndOf="@id/ivProfileImage"
+        android:visibility="gone"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <!-- BUTTONS -->
+    <ImageView
+        android:id="@+id/comment"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/vector_compose_dm_fab"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/ivProfileImage"
+        app:tint="#9E9E9E" />
+    <TextView
+        android:id="@+id/commentCount"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:textColor="#9E9E9E"
+        tools:text="172k"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/comment"/>
+    <ImageView
+        android:id="@+id/retweet"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/commentCount"
+        app:tint="#9E9E9E" />
+    <TextView
+        android:id="@+id/retweetCount"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:textColor="#9E9E9E"
+        tools:text="172k"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/retweet"/>
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_vector_heart_stroke"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/retweetCount"
+        app:tint="#9E9E9E" />
+    <TextView
+        android:id="@+id/likeCount"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:textColor="#9E9E9E"
+        tools:text="172k"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/like"/>
+    <ImageView
+        android:id="@+id/share"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/ic_vector_messages_stroke"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/likeCount"
+        app:tint="#9E9E9E" />
+
+</RelativeLayout>
