@@ -324,6 +324,78 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+            /**
+             * A lot of listeners so that if clicked on any part of the Tweet you can see the detail of it
+             *
+             * NOTE:
+             * I know its a lot of functions that kind of say the same but it is faster to implemented this way and I still had
+             * a couple of other things I wanted to implement. If there's time I'll fix that part.
+             */
+            tvBody.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            tvUsername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            tvScreenName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            replyTo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            replyToTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = tweet.id;
+                    Intent intent = new Intent(context, TweetDetail.class);
+                    intent.putExtra("tweet", Parcels.wrap(tweet));
+                    ((TimelineActivity) context).startActivity(intent);
+                }
+            });
+
+
         }
 
     }

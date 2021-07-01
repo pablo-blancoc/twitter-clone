@@ -138,6 +138,22 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(apiUrl, params, "", handler);
 	}
 
+	/**
+	 * searches for specific tweets
+	 * @param id: The id from the Tweet
+	 * @param handler: how to handle the response
+	 */
+	public void search(String id, String q, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("search/tweets.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("q", q);
+		// params.put("max_id", id);
+		params.put("tweet_mode", "extended");
+		params.put("since_id", 1);
+		client.get(apiUrl, params, handler);
+	}
+
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");
 	 * 2. Define the parameters to pass to the request (query or body)

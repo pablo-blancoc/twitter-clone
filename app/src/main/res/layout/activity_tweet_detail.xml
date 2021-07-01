@@ -3,29 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:paddingBottom="10dp"
-    android:background="@drawable/border" >
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="#121212">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:padding="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/logo" />
 
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold"
+        android:layout_below="@id/toolbar"
         tools:text="Museo Mexicano de InternetMuseo Mexicano de Internet" />
 
     <TextView
@@ -88,6 +106,7 @@
         android:layout_toEndOf="@id/ivProfileImage"
         android:layout_below="@id/ivImage"
         android:layout_marginStart="2dp"
+        android:layout_marginBottom="10dp"
         android:textSize="12sp"
         android:maxLength="5"
         android:textColor="#9E9E9E"
@@ -111,6 +130,7 @@
         android:layout_height="20dp"
         app:srcCompat="@drawable/vector_compose_dm_fab"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/ivProfileImage"
         app:tint="#9E9E9E" />
     <TextView
@@ -120,6 +140,7 @@
         android:textColor="#9E9E9E"
         tools:text="172k"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/comment"/>
     <ImageView
         android:id="@+id/retweet"
@@ -127,6 +148,7 @@
         android:layout_height="20dp"
         app:srcCompat="@drawable/ic_vector_retweet_stroke"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/commentCount"
         app:tint="#9E9E9E" />
     <TextView
@@ -136,6 +158,7 @@
         android:textColor="#9E9E9E"
         tools:text="172k"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/retweet"/>
     <ImageView
         android:id="@+id/like"
@@ -145,6 +168,7 @@
         android:focusable="true"
         app:srcCompat="@drawable/ic_vector_heart_stroke"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/retweetCount"
         app:tint="#9E9E9E" />
     <TextView
@@ -154,6 +178,7 @@
         android:textColor="#9E9E9E"
         tools:text="172k"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/like"/>
     <ImageView
         android:id="@+id/share"
@@ -161,7 +186,15 @@
         android:layout_height="20dp"
         app:srcCompat="@drawable/ic_vector_messages_stroke"
         android:layout_below="@id/tvTimeAgo"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/likeCount"
         app:tint="#9E9E9E" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvReplies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/comment"/>
+
 
 </RelativeLayout>

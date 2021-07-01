@@ -96,6 +96,19 @@ public class Tweet {
         return tweets;
     }
 
+    public static List<Tweet> fromSearch(JSONObject object) throws JSONException {
+        List<Tweet> tweets = new ArrayList<>();
+        JSONArray jsonArray = object.getJSONArray("statuses");
+        if(jsonArray == null){
+            return tweets;
+        }
+
+        for(int i=0; i< jsonArray.length(); i++) {
+            tweets.add(fromJson(jsonArray.getJSONObject(i)));
+        }
+        return tweets;
+    }
+
     /**
      * Getter for Tweet's body
      * @return String
