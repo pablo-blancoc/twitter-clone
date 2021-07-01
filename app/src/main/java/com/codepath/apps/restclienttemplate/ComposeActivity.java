@@ -74,7 +74,7 @@ public class ComposeActivity extends AppCompatActivity {
                 } else {
 
                     if( reply_to_id != null ) {
-                        content = "@" + reply_to_name + ", " + content;
+                        content = "@" + reply_to_name + " " + content;
                     }
 
                     // Make API call to publish Tweet

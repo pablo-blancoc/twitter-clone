@@ -128,6 +128,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivImage;
         TextView likeCount;
         TextView retweetCount;
+        TextView replyTo;
+        TextView replyToTitle;
 
         // Buttons
         ImageView like;
@@ -156,6 +158,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             this.retweet = itemView.findViewById(R.id.retweet);
             this.comment = itemView.findViewById(R.id.comment);
             this.share = itemView.findViewById(R.id.share);
+            this.replyTo = itemView.findViewById(R.id.tvReplyTo);
+            this.replyToTitle = itemView.findViewById(R.id.tvReplyToTitle);
         }
 
         /**
@@ -203,6 +207,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .into(this.ivImage);
             } else {
                 this.ivImage.setVisibility(View.GONE);
+            }
+
+            // Set replyTo
+            if(!tweet.inReplyToUsername.equals("null")) {
+                this.replyTo.setVisibility(View.VISIBLE);
+                this.replyToTitle.setVisibility(View.VISIBLE);
+                this.replyTo.setText("@" + tweet.inReplyToUsername);
+            } else {
+                this.replyTo.setVisibility(View.GONE);
+                this.replyToTitle.setVisibility(View.GONE);
             }
 
             /**

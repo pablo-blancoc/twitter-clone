@@ -30,10 +30,38 @@
         tools:text="Museo Mexicano de InternetMuseo Mexicano de Internet" />
 
     <TextView
-        android:id="@+id/tvBody"
+        android:id="@+id/tvReplyToTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#9E9E9E"
+        android:visibility="gone"
+        android:text="@string/replying_to" />
+
+    <TextView
+        android:id="@+id/tvReplyTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/tvReplyToTitle"
+        android:textColor="#1DA1F2"
+        android:visibility="gone"
+        android:text="@string/replying_to" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvReplyToTitle"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"

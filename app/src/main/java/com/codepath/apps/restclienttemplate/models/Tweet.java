@@ -36,6 +36,8 @@ public class Tweet {
     public int comments;
     public boolean isLiked;
     public boolean isRetweeted;
+    public String inReplyToTweet;
+    public String inReplyToUsername;
 
 
     /**
@@ -64,6 +66,8 @@ public class Tweet {
         tweet.id = jsonObject.getString("id");
         tweet.isLiked = jsonObject.getBoolean("favorited");
         tweet.isRetweeted = jsonObject.getBoolean("retweeted");
+        tweet.inReplyToTweet = jsonObject.getString("in_reply_to_status_id");
+        tweet.inReplyToUsername = jsonObject.getString("in_reply_to_screen_name");
 
 
         JSONObject entities = jsonObject.getJSONObject("entities");
