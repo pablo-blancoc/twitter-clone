@@ -18,12 +18,11 @@
 
     <TextView
         android:id="@+id/tvScreenName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:maxLength="35"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -33,7 +32,7 @@
         android:id="@+id/tvReplyToTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
+        android:layout_below="@+id/tvUsername"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
@@ -47,7 +46,7 @@
         android:id="@+id/tvReplyTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
+        android:layout_below="@+id/tvUsername"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
@@ -74,9 +73,9 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="2dp"
-        android:layout_toEndOf="@+id/tvScreenName"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_below="@id/tvScreenName"
         android:textColor="#9E9E9E"
         android:textSize="12sp"
         android:maxLength="15"
@@ -86,8 +85,8 @@
         android:id="@+id/tvTimeAgo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/tvUsername"
+        android:layout_toEndOf="@id/ivProfileImage"
+        android:layout_below="@id/ivImage"
         android:layout_marginStart="2dp"
         android:textSize="12sp"
         android:maxLength="5"
@@ -111,7 +110,7 @@
         android:layout_width="40dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/vector_compose_dm_fab"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/ivProfileImage"
         app:tint="#9E9E9E" />
     <TextView
@@ -120,14 +119,14 @@
         android:layout_height="20dp"
         android:textColor="#9E9E9E"
         tools:text="172k"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/comment"/>
     <ImageView
         android:id="@+id/retweet"
         android:layout_width="40dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/ic_vector_retweet_stroke"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/commentCount"
         app:tint="#9E9E9E" />
     <TextView
@@ -136,7 +135,7 @@
         android:layout_height="20dp"
         android:textColor="#9E9E9E"
         tools:text="172k"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/retweet"/>
     <ImageView
         android:id="@+id/like"
@@ -145,7 +144,7 @@
         android:clickable="true"
         android:focusable="true"
         app:srcCompat="@drawable/ic_vector_heart_stroke"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/retweetCount"
         app:tint="#9E9E9E" />
     <TextView
@@ -154,14 +153,14 @@
         android:layout_height="20dp"
         android:textColor="#9E9E9E"
         tools:text="172k"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/like"/>
     <ImageView
         android:id="@+id/share"
         android:layout_width="40dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/ic_vector_messages_stroke"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/tvTimeAgo"
         android:layout_toEndOf="@id/likeCount"
         app:tint="#9E9E9E" />
 
