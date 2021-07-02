@@ -47,7 +47,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/pablo-blancoc/twitter-clone/blob/main/walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/pablo-blancoc/twitter-clone/blob/main/demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with LiceCap.
 
